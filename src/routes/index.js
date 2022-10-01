@@ -23,7 +23,7 @@ const app = express();
 app.use(express.json());
 
 // Rutas
-app.use("/api/products", productRoutes);
+app.use("/products", productRoutes);
 
 // Ping prueba de estado
 app.get("/api/ping", (req, res) => {
