@@ -1,13 +1,12 @@
-// mongo uri = mongodb+srv://<username>:<password>@cluster0.ktyjl.mongodb.net/test
-
 import express from "express";
 import dotenv from "dotenv";
-
-import productRoutes from "./src/routes/products.js";
-
 import mongoose from "mongoose";
+import productRoutes from "./products.js";
 
+// configuracion de dotenv
 dotenv.config();
+
+// conexion con la base de datos
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => {
@@ -17,12 +16,14 @@ mongoose
     console.log("Error al conectar a la base de datos", err);
   });
 
+// creacion del servidor
 const app = express();
 
+// body parser
 app.use(express.json());
 
 // Rutas
-// app.use("/api/products", productRoutes);
+app.use("/api/products", productRoutes);
 
 // Ping prueba de estado
 app.get("/api/ping", (req, res) => {
