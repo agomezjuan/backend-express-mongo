@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import productRoutes from "./products.js";
+import userRoutes from "./user.js";
 
 // configuracion de dotenv
 dotenv.config();
@@ -12,7 +13,7 @@ mongoose
   .then(() => {
     console.log("Conectado a la base de datos");
   })
-  .catch(err => {
+  .catch((err) => {
     console.log("Error al conectar a la base de datos", err);
   });
 
@@ -38,6 +39,7 @@ app.use(express.json());
 
 // Rutas
 app.use("/products", productRoutes);
+app.use("/users", userRoutes);
 
 // Ping prueba de estado
 app.get("/api/ping", (req, res) => {
