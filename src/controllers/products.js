@@ -6,7 +6,8 @@ const createProduct = (req, res) => {
     name: req.body.name,
     price: req.body.price,
     stock: req.body.stock,
-    description: req.body.description
+    description: req.body.description,
+    image: req.body.image
   });
   product
     .save()
@@ -89,7 +90,8 @@ const updateProduct = (req, res) => {
     name: req.body.name,
     price: req.body.price,
     stock: req.body.stock,
-    description: req.body.description
+    description: req.body.description,
+    imageURL: req.body.imageURL
   });
   Product.updateOne({ _id: req.params.id }, product).then(product => {
     if (product) {
