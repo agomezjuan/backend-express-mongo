@@ -2,10 +2,11 @@ import express from "express";
 import auth from "../middlewares/auth.js"
 
 import productController from "../controllers/products.js";
+import { productValidator } from "../middlewares/validator.js";
 
 const router = express.Router();
 
-router.post("/", auth, productController.createProduct);
+router.post("/", auth, productValidator, productController.createProduct);
 
 // obtener todos los productos
 router.get("/", productController.getProducts);
@@ -20,6 +21,6 @@ router.get("/name/:name", productController.getOneProductByName);
 router.delete("/:id", productController.deleteProduct);
 
 // actualizar un producto por id
-router.put("/:id", auth, productController.updateProduct);
+router.put("/:id", auth, productValidator, productController.updateProduct);
 
 export default router;

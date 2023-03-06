@@ -24,3 +24,10 @@ export const signupValidator = [
     body('password', 'The password is required').notEmpty(),
     validateMiddlewares
 ]
+
+export const productValidator = [
+    body('name', 'The name is required').notEmpty(),
+    body('price', 'The price is required').notEmpty().isNumeric(),
+    body('stock', 'The stock is required').notEmpty().isNumeric(),
+    validateMiddlewares
+]
