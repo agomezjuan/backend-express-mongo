@@ -7,8 +7,17 @@ import User from "../models/user.js";
 dotenv.config();
 
 // signup route
-const signup = (req, res) => {
-  bcrypt.hash(req.body.password, 10, async (err, hash) => {
+const signup = async (req, res) => {
+  const { name, email, password } = req.body;
+
+  // Verificar si el usuario ya existe
+  const existingUser = await User.findOne({ email });
+
+  if (existingUser) {
+    return res.status(409).json({ status: 'error', message: 'This email is already registered' });
+  }
+
+  bcrypt.hash(password, 10, async (err, hash) => {
     if (err) {
       return res.status(500).json({
         error: err,
@@ -16,8 +25,8 @@ const signup = (req, res) => {
     } else {
       try {
         const user = new User({
-          name: req.body.name,
-          email: req.body.email,
+          name,
+          email,
           password: hash,
         });
 
